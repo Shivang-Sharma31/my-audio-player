@@ -25,7 +25,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 const playMusic = (track, pause = false) => {
-    currentSong.src = "/songs/" + encodeURIComponent(track);
+    currentSong.src = "songs/" + encodeURIComponent(track);
 
     if (!pause) {
         currentSong.play();
@@ -35,6 +35,7 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songinfo").innerHTML = track;
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 };
+
 
 
 async function main() {
@@ -153,4 +154,5 @@ async function main() {
 }
 
 main();
+
 
