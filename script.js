@@ -25,7 +25,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 
 const playMusic = (track, pause = false) => {
-    currentSong.src = "/songs/" + track;
+    currentSong.src = "/songs/" + encodeURIComponent(track);
 
     if (!pause) {
         currentSong.play();
@@ -35,6 +35,7 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songinfo").innerHTML = track;
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 };
+
 
 async function main() {
 
@@ -104,14 +105,18 @@ async function main() {
 
     // ================= PREV / NEXT =================
     previous.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").pop());
-        if (index > 0) playMusic(songs[index - 1]);
-    });
+    let currentFile = decodeURIComponent(currentSong.src.split("/").pop());
+    let index = songs.indexOf(currentFile);
+    if (index > 0) playMusic(songs[index - 1]);
+});
+
 
     next.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").pop());
-        if (index + 1 < songs.length) playMusic(songs[index + 1]);
-    });
+    let currentFile = decodeURIComponent(currentSong.src.split("/").pop());
+    let index = songs.indexOf(currentFile);
+    if (index + 1 < songs.length) playMusic(songs[index + 1]);
+});
+
 
     // ================= VOLUME =================
     document.querySelector(".range input").addEventListener("change", e => {
@@ -148,3 +153,4 @@ async function main() {
 }
 
 main();
+
